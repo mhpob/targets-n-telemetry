@@ -193,3 +193,5 @@ Now, take a look around.
 And, my personal favorite:
 
 - visualize the whole shebang using `tar_visnetwork()`
+
+![](tar_visnetwork.png)
