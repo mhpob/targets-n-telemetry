@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 # targets-n-telemetry
 
-This is a quick-and-dirty example of how one might us a `targets` workflow on telemetry data.
+This is a quick-and-dirty example of how one might use a `targets` workflow on telemetry data.
 
 First, install `targets` and its companion package, `tarchetypes`.
 
