@@ -165,7 +165,7 @@ list(
 )
 ```
 
-Lastly, run the workflow! You can do this by sourcing the `run.R` file created by `targets::use_targets()` or by typing `tar_make()` in your console.
+Now, run the workflow! You can do this by sourcing the `run.R` file created by `targets::use_targets()` or by typing `tar_make()` in your console.
 
 Now, take a look around.
 
@@ -178,3 +178,46 @@ And, my personal favorite:
 -   visualize the whole shebang using `tar_visnetwork()`
 
 ![](tar_visnetwork.png)
+
+## Updating
+
+What happens if something changes? Imagine that we just received some new data and now we know that _B. bobus_ actually stays though October. We can update the `bob_summer` function and take a look at what that does to our workflow.
+
+```{r}
+bob_summer <- function(detections){
+  bob <- detections[grepl('bob', detections$id),]
+  
+  bob[bob$datetime >= as.POSIXct('2023-06-01 00:00:00') &
+        bob$datetime <= as.POSIXct('2023-10-31 00:00:00'),]
+}
+```
+
+```{r}
+tar_visnetwork()
+```
+
+![](visnetwork_outdated.png)
+
+Ah! It knows that `bob_summer` was changed, which has downstream effects on `bob_you_jerk` and `final_n_detections`. If we run the workflow again, *only those three targets will be re-run*.
+
+```{}
+> targets::tar_make()
+✔ skipped target fish_spp
+✔ skipped branch dets_raw_82217696
+✔ skipped branch dets_raw_4ded0305
+✔ skipped branch dets_raw_be937cdf
+✔ skipped branch dets_raw_9b4d0a56
+✔ skipped branch dets_raw_1a7dc46f
+✔ skipped branch dets_raw_a61920d7
+✔ skipped branch dets_raw_ec6eb98a
+✔ skipped branch dets_raw_d08f8e70
+✔ skipped pattern dets_raw
+✔ skipped target fix_janine
+▶ dispatched target bob_you_jerk
+● completed target bob_you_jerk [0.016 seconds]
+✔ skipped target more_better_fixed_janine
+✔ skipped target final_n_detections
+▶ completed pipeline [0.25 seconds]
+```
+
+Not that big of a deal here, but you can imagine how much of a timesaver this becomes as things get more complicated.
