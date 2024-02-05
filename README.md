@@ -10,7 +10,27 @@ to [`targets`](https://docs.ropensci.org/targets/).
 
 Pull requests are welcomed by anyone and everyone!
 
-Completion:
+## To get started
+
+1.  Clone this repository and switch to the `otn-workshop-targets`
+    branch
+2.  Open the `_targets.R` file
+3.  Open up the [OTN workshop
+    page](https://ocean-tracking-network.github.io/otn-workshop-base/)
+    and select an episode
+4.  Pick a chunk of code or an example
+    1.  if it’s short, assign it directly to a target in the
+        `_targets.R` file
+    2.  if it’s long, wrap it in a function within the episode’s `.R`
+        file in the `episodes/` directory
+5.  Save `_targets.R`, run `targets::tar_make()`, and watch what
+    happens!
+6.  Run `tar_objects()` to see what was created
+7.  Run `tar_read(some_object_name)` to look at a specific target
+8.  Commit and push your changes
+9.  Open a pull request!
+
+## Completion
 
 - [x] Setup/Background
 - [ ] Intro to R
@@ -38,7 +58,7 @@ Completion:
 - [ ] Introduction to Git for Code
 - [ ] Other OTN Telemetry Curricula
 
-Current network:
+## Current network
 
 ``` r
 targets::tar_visnetwork()
